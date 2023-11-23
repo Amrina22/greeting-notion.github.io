@@ -8,30 +8,40 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 100px;
+            margin: 20px;
+        }
+
+        #greeting-container {
+            text-align: left; /* Align the greeting to the left */
         }
 
         #greeting {
             font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
+            color: white;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 4s steps(40) infinite;
         }
 
-        #dateTime {
-            font-size: 18px;
-            color: #666;
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div>
+    <div id="greeting-container">
         <p id="greeting"></p>
-        <p id="dateTime"></p>
     </div>
 
     <script>
         var greetingElement = document.getElementById('greeting');
-        var dateTimeElement = document.getElementById('dateTime');
 
         function typeWriter(text, element, callback) {
             var index = 0;
@@ -66,14 +76,8 @@
             typeWriter(greetingText, greetingElement);
         }
 
-        function updateDateTime() {
-            var now = new Date();
-            dateTimeElement.textContent = now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }); // WIB time zone
-        }
-
-        // Initial greeting and time update
+        // Initial greeting update
         updateGreeting();
-        setInterval(updateDateTime, 1000);
     </script>
 </body>
 </html>
