@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Greeting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 100px;
+        }
+
+        #greeting {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #dateTime {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p id="greeting"></p>
+        <p id="dateTime"></p>
+    </div>
+
+    <script>
+        var greetingElement = document.getElementById('greeting');
+        var dateTimeElement = document.getElementById('dateTime');
+
+        function typeWriter(text, element, callback) {
+            var index = 0;
+            function type() {
+                element.textContent += text[index];
+                index++;
+                if (index < text.length) {
+                    setTimeout(type, 100);
+                } else {
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        function updateGreeting() {
+            var now = new Date();
+            var localTime = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Jakarta' }); // WIB time zone
+            var hours = parseInt(localTime.slice(0, 2));
+
+            var greetingText = "Hello, have a great day!"; // Default greeting
+
+            if (hours >= 0 && hours < 12) {
+                greetingText = "Good Morning Amrina, have a good day!";
+            } else if (hours >= 12 && hours < 18) {
+                greetingText = "Good Afternoon Amrina, hope you're having a good day!";
+            } else if (hours >= 18 && hours < 24) {
+                greetingText = "Good Evening Amrina, enjoy your evening!";
+            }
+
+            // Update the greeting message
+            typeWriter(greetingText, greetingElement);
+        }
+
+        function updateDateTime() {
+            var now = new Date();
+            dateTimeElement.textContent = now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }); // WIB time zone
+        }
+
+        // Initial greeting and time update
+        updateGreeting();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
